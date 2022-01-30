@@ -20,6 +20,6 @@ connectDB().then(()=>{
 })
 app.use(logger('dev'))
 
-app.listen(5500,()=>{
+app.listen(process.env.PORT||5500,()=>{
     console.log('Serser run on port 5500')
 })
