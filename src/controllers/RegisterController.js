@@ -1,4 +1,4 @@
-const {User}=require('../models')
+const {User,PlayList}=require('../models')
 
 const register=async(req,res)=>{
     console.log(req.body)
@@ -9,6 +9,12 @@ const register=async(req,res)=>{
         photoURL:req.body.photoURL,
     })
     await newUser.save()
+    const newPlayList=new PlayList({
+        userId:newUser._id,
+        isPublic:false,
+        avatar:'/img/playlist1.png'
+    })
+    await newPlayList.save()
     res.status(200).json({success:true})
 }
 

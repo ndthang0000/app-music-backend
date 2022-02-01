@@ -7,7 +7,7 @@ mongoose.plugin(slug);
 const Song = new Schema({
     name:  String,
     source:String,
-    singerId:{type:Schema.Types.ObjectId,ref:'User'},
+    userId:{type:Schema.Types.ObjectId,ref:'User'},
     singerName:String,
     des:String,
     love:{type:Number,default:0},
@@ -15,6 +15,6 @@ const Song = new Schema({
     duration:Number,
     avatar:String,
     slug:{type:String,slug:"name",unique:true}
-});
+},{timestamps:true});
 
 module.exports=mongoose.model('Song',Song)

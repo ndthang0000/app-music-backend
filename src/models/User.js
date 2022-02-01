@@ -9,6 +9,6 @@ const User = new Schema({
     photoURL:String,
     uid:String,
     listSongLove:[{type:Schema.Types.ObjectId,ref:'Song'}]
-});
+},{timestamps:true});
 
 module.exports=mongoose.model('User',User)
