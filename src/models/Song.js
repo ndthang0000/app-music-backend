@@ -10,6 +10,7 @@ const Song = new Schema({
     singerId:{type:Schema.Types.ObjectId,ref:'User'},
     singerName:String,
     des:String,
+    love:{type:Number,default:0},
     view:{type:Number,default:0},
     duration:Number,
     avatar:String,
