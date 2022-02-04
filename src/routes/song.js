@@ -1,11 +1,9 @@
 const route=require('express').Router()
 const {SongController}=require('../controllers')
-const upload=require('../middlewares/multer')
+const {verifyTokenMiddleWare}=require('../middlewares')
 
-route.get('/play-list/:id',SongController.getPlayList)
+route.get('/love/:id',verifyTokenMiddleWare,SongController.getIsLove)
 route.get('/get-list',SongController.getListSong)
-route.post('/love',SongController.getIsLove)
-route.post('/set-love',SongController.setLove)
-route.post('/upload',upload.fields([{name:'song',maxCount: 1},{name:'image',maxCount: 1}]),SongController.upload)
+route.get('/set-love/:id',verifyTokenMiddleWare,SongController.setLove)
 route.get('/:id',SongController.getOneSong)
 module.exports=route

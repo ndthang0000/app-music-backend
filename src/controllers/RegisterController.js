@@ -12,7 +12,9 @@ const register=async(req,res)=>{
     const newPlayList=new PlayList({
         userId:newUser._id,
         isPublic:false,
-        avatar:'/img/playlist1.png'
+        avatar:'/img/playlist1.png',
+        name:req.body.displayName,
+        slug:'mac-dinh'
     })
     await newPlayList.save()
     res.status(200).json({success:true})
