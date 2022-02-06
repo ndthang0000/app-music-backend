@@ -21,7 +21,6 @@ const addPlayList=async(req,res)=>{
             }
         }
     }
-    console.log(checkedId)
     try{
         const playList=await PlayList.find({userId:req.user._id,_id:checkedId})
         console.log(playList)
@@ -61,8 +60,17 @@ const createPlayList=async(req,res)=>{
     res.status(200).json({success:true,newPlayList})
 }
 
+const editPlayList=async(req,res)=>{
+    let newPlayList=await PlayList.findOne({_id:req.body._id})
+    newPlayList.name=req.body.name
+    newPlayList.isPublic=req.body.isPublic
+    await newPlayList.save()
+    res.status(200).json({success:true,newPlayList})
+}
+
 const getOnePlaylist=async(req,res)=>{
     const playList=await PlayList.findOne({userId:req.user._id,slug:req.params.slug})
+    console.log(playList)
     const listSong=await Song.find({_id:playList.listSong})
     res.status(200).json({success:true,playList,listSong})
 }
@@ -72,5 +80,6 @@ module.exports={
     addPlayList,
     upload,
     createPlayList,
-    getOnePlaylist
+    getOnePlaylist,
+    editPlayList
 }
