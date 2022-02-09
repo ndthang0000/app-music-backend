@@ -36,9 +36,23 @@ const setLove=async(req,res)=>{
         res.status(200).json({success:true,isLove:true})
     }
 }
+
+const getRecentlySong=async(req,res)=>{
+    console.log(req.body)
+    try{
+        const recentlySong=await Song.find({_id:req.body.listSong})
+        return res.status(200).json({success:true,recentlySong:recentlySong})
+    }
+
+    catch(e){
+        res.status(400).json({success:false})
+    }
+}
+
 module.exports={
     getListSong,
     getOneSong,
     getIsLove,
-    setLove
+    setLove,
+    getRecentlySong
 }

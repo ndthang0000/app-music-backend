@@ -68,6 +68,19 @@ const editPlayList=async(req,res)=>{
     res.status(200).json({success:true,newPlayList})
 }
 
+const deleteSongFromPlayList=async(req,res)=>{
+    const playList=await PlayList.findOne({userId:req.user._id,_id:req.body.playListId})
+    console.log(playList)
+    if(!playList){
+        return res.status(400).json({success:false,message:'Không tìm thấy PlayList'})
+    }
+    if(playList.listSong.indexOf(req.body.songId)>=0){
+        playList.listSong.splice(playList.listSong.indexOf(req.body.songId),1)
+        await playList.save()
+        res.status(200).json({success:true,playList})
+    }
+}
+
 const getOnePlaylist=async(req,res)=>{
     const playList=await PlayList.findOne({userId:req.user._id,slug:req.params.slug})
     console.log(playList)
@@ -81,5 +94,6 @@ module.exports={
     upload,
     createPlayList,
     getOnePlaylist,
-    editPlayList
+    editPlayList,
+    deleteSongFromPlayList
 }

@@ -3,6 +3,7 @@ const {UserController}=require('../controllers')
 const {upload}=require('../middlewares')
 
 
+route.post('/play-list/song/delete',UserController.deleteSongFromPlayList)
 route.get('/play-list/detail/:slug',UserController.getOnePlaylist)
 route.post('/play-list/add',UserController.addPlayList)
 route.post('/play-list/edit',UserController.editPlayList)
