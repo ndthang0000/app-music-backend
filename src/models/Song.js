@@ -14,7 +14,8 @@ const Song = new Schema({
     view:{type:Number,default:0},
     duration:Number,
     avatar:String,
-    slug:{type:String,slug:"name",unique:true}
+    slug:{type:String,slug:"name",unique:true},
+    nation:{type:Schema.Types.ObjectId,ref:'Nation',default:null},
 },{timestamps:true});
 
 module.exports=mongoose.model('Song',Song)

@@ -44,7 +44,8 @@ const upload=async(req,res)=>{
         singerName:req.body.singer,
         avatar:'/uploads/'+req.files.image[0].filename,
         duration:parseFloat(req.body.duration),
-        userId:req.user._id
+        userId:req.user._id,
+        nation:req.body.nation
     })
     await newSong.save()
     res.status(200).json({success:true,song:newSong})

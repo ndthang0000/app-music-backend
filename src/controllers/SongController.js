@@ -1,4 +1,4 @@
-const {Song, User}=require('../models')
+const {Song,Nation}=require('../models')
 
 
 const getListSong=async(req,res)=>{
@@ -38,7 +38,6 @@ const setLove=async(req,res)=>{
 }
 
 const getRecentlySong=async(req,res)=>{
-    console.log(req.body)
     try{
         const recentlySong=await Song.find({_id:req.body.listSong})
         return res.status(200).json({success:true,recentlySong:recentlySong})
@@ -49,10 +48,21 @@ const getRecentlySong=async(req,res)=>{
     }
 }
 
+const getNation=async(req,res)=>{
+    try{
+        const allNation=await Nation.find({})
+        return res.status(200).json({success:true,allNation})
+    }
+    catch(e){
+        res.status(400).json({success:false})
+    }
+}
+
 module.exports={
     getListSong,
     getOneSong,
     getIsLove,
     setLove,
-    getRecentlySong
+    getRecentlySong,
+    getNation
 }
