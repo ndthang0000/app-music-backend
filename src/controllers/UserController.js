@@ -11,8 +11,6 @@ const getAllPlayList=async(req,res)=>{
 }
 
 const addPlayList=async(req,res)=>{
-    console.log(req.body.checked)
-    console.log(req.body.songId)
     let checkedId=[]
     for (let key in req.body.checked) {
         if (req.body.checked.hasOwnProperty(key)) {
@@ -84,9 +82,58 @@ const deleteSongFromPlayList=async(req,res)=>{
 
 const getOnePlaylist=async(req,res)=>{
     const playList=await PlayList.findOne({userId:req.user._id,slug:req.params.slug})
-    console.log(playList)
     const listSong=await Song.find({_id:playList.listSong})
     res.status(200).json({success:true,playList,listSong})
+}
+
+const follow=async(req,res)=>{
+    let {id}=req.params
+    const findUser=await User({_id:id})
+    if(!findUser){
+        return res.status(400).json({success:false})
+    }
+    if(!req.user.listFollow.includes(id)){
+        req.user.listFollow.push(id)
+        await req.user.save()
+    }
+    res.status(200).json({success:true,isFollow:true})
+}
+
+const checkFollow=async(req,res)=>{
+    let {id}=req.params
+    const findUser=await User({_id:id})
+    if(!findUser){
+        return res.status(400).json({success:false})
+    }
+    if(req.user.listFollow.includes(id)){
+        return res.status(200).json({success:true,isFollow:true})
+    }
+    return res.status(200).json({success:true,isFollow:false})
+}
+
+const unFollow=async(req,res)=>{
+    let {id}=req.params
+    const findUser=await User({_id:id})
+    if(!findUser){
+        return res.status(400).json({success:false})
+    }
+    if(req.user.listFollow.includes(id)){
+        req.user.listFollow=req.user.listFollow.filter(item=>item._id!=id)
+        await req.user.save()
+        return res.status(200).json({success:true})
+    }
+    return res.status(200).json({success:true,message:'User không follow trước đó'})
+}
+
+const editStory=async(req,res)=>{
+    try{
+        req.user.story=req.body.newStory
+        await req.user.save()
+        res.status(200).json({success:true,newStory:req.body.newStory})
+    }
+    catch(e){
+        res.status(400).json({success:false})
+    }
 }
 
 module.exports={
@@ -96,5 +143,9 @@ module.exports={
     createPlayList,
     getOnePlaylist,
     editPlayList,
-    deleteSongFromPlayList
+    deleteSongFromPlayList,
+    follow,
+    checkFollow,
+    unFollow,
+    editStory
 }

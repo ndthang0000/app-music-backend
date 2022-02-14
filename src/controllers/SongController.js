@@ -2,8 +2,12 @@ const {Song,Nation}=require('../models')
 
 
 const getListSong=async(req,res)=>{
-    const allSong=await Song.find({})
-    res.status(200).json(allSong)
+    let {page}=req.query
+    if(!page){
+        page=1
+    }
+    const allSong=await Song.find({}).limit(8).skip((page-1)*8)
+    res.status(200).json({success:true,allSong})
 }
 
 const getOneSong= async(req,res)=>{

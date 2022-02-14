@@ -6,7 +6,9 @@ const User = new Schema({
     email:String,
     photoURL:String,
     uid:String,
-    listSongLove:[{type:Schema.Types.ObjectId,ref:'Song'}]
+    story:{type:String,default:'Chưa cập nhật'},
+    listSongLove:[{type:Schema.Types.ObjectId,ref:'Song'}],
+    listFollow:[{type:Schema.Types.ObjectId,ref:'User'}]
 },{timestamps:true});
 
 module.exports=mongoose.model('User',User)
