@@ -136,6 +136,17 @@ const editStory=async(req,res)=>{
     }
 }
 
+const getMySong=async(req,res)=>{
+    try{
+        const mySong=await Song.find({userId:req.user._id})
+        console.log(mySong)
+        res.status(200).json({success:true,mySong})
+    }
+    catch(e){
+        res.status(400).json({success:false})
+    }
+}
+
 module.exports={
     getAllPlayList,
     addPlayList,
@@ -147,5 +158,6 @@ module.exports={
     follow,
     checkFollow,
     unFollow,
-    editStory
+    editStory,
+    getMySong
 }

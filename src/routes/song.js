@@ -7,5 +7,6 @@ route.get('/set-love/:id',verifyTokenMiddleWare,SongController.setLove)
 route.post('/recently',SongController.getRecentlySong)
 route.get('/get-list',SongController.getListSong)
 route.get('/nation',SongController.getNation)
+route.post('/search',SongController.search)
 route.get('/:id',SongController.getOneSong)
 module.exports=route

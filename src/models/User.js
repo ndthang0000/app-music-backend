@@ -8,7 +8,8 @@ const User = new Schema({
     uid:String,
     story:{type:String,default:'Chưa cập nhật'},
     listSongLove:[{type:Schema.Types.ObjectId,ref:'Song'}],
-    listFollow:[{type:Schema.Types.ObjectId,ref:'User'}]
+    listFollow:[{type:Schema.Types.ObjectId,ref:'User'}],
+    quantityFollower:{type:Number,default:0}
 },{timestamps:true});
 
 module.exports=mongoose.model('User',User)

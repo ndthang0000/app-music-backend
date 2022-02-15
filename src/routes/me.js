@@ -14,4 +14,5 @@ route.post('/play-list/create',UserController.createPlayList)
 route.get('/play-list',UserController.getAllPlayList)
 route.post('/story',UserController.editStory)
 route.post('/upload',upload.fields([{name:'song',maxCount: 1},{name:'image',maxCount: 1}]),UserController.upload)
+route.get('/my-song',UserController.getMySong)
 module.exports=route

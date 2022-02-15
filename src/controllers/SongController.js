@@ -62,11 +62,28 @@ const getNation=async(req,res)=>{
     }
 }
 
+const search=async(req,res)=>{
+    let {key}=req.body
+    if(!key){
+        return res.status(400).json({success:false})
+    }
+    key=key.toLowerCase()
+    const allSong=await Song.find({})
+    let newListSong=[]
+    allSong.forEach(item=>{
+        if(item.name.toLowerCase().includes(key)||item.singerName.toLowerCase().includes(key)){
+            newListSong.push(item)
+        }
+    })
+    res.status(200).json({success:true,newListSong})
+}
+
 module.exports={
     getListSong,
     getOneSong,
     getIsLove,
     setLove,
     getRecentlySong,
-    getNation
+    getNation,
+    search
 }
